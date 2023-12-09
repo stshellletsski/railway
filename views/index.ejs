@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text2Fact</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Tillana&display=swap" rel="stylesheet">
+    
+</head>
+<form id="text2Fact" method="post"></form>
+<body class="pattern">
+    <main class="container column">
+        <header class="sticker">
+            <h1 class="title">Text 2 Fact!</h1>
+        </header>
+        <div class="container text">
+            <textarea name="text" cols="30"  form="text2Fact"><%= fact %></textarea>
+        </div>
+        <button form="text2Fact" type="submit" name="submit" value="submit" formaction="/get"><span>#</span> Big Brainz!</button>
+    </main>
+</body>
+</html>
