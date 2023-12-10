@@ -10,20 +10,14 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended : true}));
 
 
-app.get("/", (req, res) => {
-    res.render("index.ejs", { fact: `Hey! I'm Text 2 fact! generator.\r\nProvide your text or leave this one and smash #Big Brainz to generate a fact from Wikipedia!\r\n\nI am currently looking to gain valuable experience\r\nIf you are looking for junior dev, message me: stshellletsski@gmail.com\r\n\nCredits:\r\nhttps://pattern.monster/\r\nAlbin Larsson - https://byabbe.se/\r\n`});
+app.get("*", (req, res) => {
+    const welcomeMessage = `Hey! I'm Text 2 fact! generator. Designed and coded by: Marcin Strzelecki\r\nProvide your text or leave this one and smash #Big Brainz to generate a fact from Wikipedia!\r\n\nI am currently looking to gain valuable experience\r\nIf your team is looking for junior dev, message me: stshellletsski@gmail.com\r\n\nCredits:\r\nhttps://pattern.monster/\r\nAlbin Larsson - https://byabbe.se/\r\n`
+    res.render("index.ejs", { fact: welcomeMessage });
 });
 
 app.post("/generate", async (req, res) => {
-    let input = req.body.text.replace(/\W/g, '').split("").map(x=>x.charCodeAt(0)).join(""); 
-        
-    let date;
-    if (input.length) {
-        date = Number(dateFromText(input));
-    } else {
-        date = 123123123123123;
-    }
-    
+    const input = req.body.text.replace(/\W/g, '').split("").map(x=>x.charCodeAt(0)).join(""); 
+    const date = Number(dateFromText(input));
     const month = new Date(date).getMonth();
     const day = new Date(date).getDate();
     const endpoint = `${month}/${day}/events.json`
@@ -42,16 +36,15 @@ app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // eventsData <= props format:
 // .wikipedia <= wiki link to date; .date <= month/day of events; .events <= array of event objects
 // .events <= props format:
 // .length <= number of events; [i] <= i-th event from array
 // eventsData.events[i] <= props format:
 // .year <= year of event;  .description <= event description .wikipedia <= array of wiki links related to event
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function RandomEvent (eventsData) {
     this.numberOfEvents = eventsData.events.length;
     this.eventSelector = function (x) {return Math.floor(Math.random()*x)};
@@ -66,7 +59,8 @@ function RandomEvent (eventsData) {
 }
 
 function dateFromText (text) {
-    let val =  text; 
+    let val; 
+    (text.length >=14) ? val = text : val = "123456789";
     let ranDate = "";
     let ranIndex = 0;
     while(ranDate.length !== 14) {
