@@ -64,6 +64,7 @@ textarea {
     height: 100%;
     text-decoration: underline;
     line-height: 2rem;
+    overflow: clip;
 }
 
 textarea:focus {
